@@ -1,17 +1,16 @@
-const express = require('express');
+// const express = require('express');
 const inquirer = require('inquirer');
-const userOptions = require('./userOptions.js');
 
-function app(database) {
-  const app = express()
+function app(database, userOptions) {
+  const app = {};
   
-  app.startApp = () => {
-    inquirer
-      .prompt(userOptions)
+  app.startApp = async function() {
+    await inquirer
+      .prompt(userOptions.list)
       .then((answers) => {
         // Use user feedback for... whatever!!
-        console.log(answers)
-        return answers;
+        console.log("You chose: ", answers.action)
+        return answers.action;
       })
       .catch((error) => {
         if (error.isTtyError) {
@@ -23,12 +22,14 @@ function app(database) {
       });
   }
 
-  app.post('/employee', async (req, res) => {
-
-  });
-  app.get('/employees', async (req, res) => {
+  /*
+  async (req, res) => {
     database.getTable('employees');
-  })
+  }
+  */
+  app.get = (url, func) => {
+    return func();
+  }
   return app
 }
 

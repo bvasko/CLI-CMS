@@ -1,6 +1,5 @@
 const request = require('supertest');
 const makeApp = require('../app.js');
-const inquirer = require('inquirer');
 const userOptions = require('../userOptions.js');
 
 jest.mock('inquirer');
@@ -9,17 +8,14 @@ const getEmployees = jest.fn()
 
 const app = makeApp({
   getEmployees
-})
+}, userOptions)
 
 describe('Command line application that accepts user input', () => {
-  it("should prompt the user to make a selection", async () => {
-    // expect.assertions(1);
-    inquirer.prompt = jest.fn().mockResolvedValue({ name: 'View employees' });
-    console.log(app.startApp())
-    await expect(app.startApp()).resolves.toEqual({ name: 'View employees' });
+  it("should prompt the user and return the answer", async () => {
   })
   it("should show department names and ids when view departments is selected", () => {
-
+    const departments = makeApp.get('departments');
+    expect(departments).toEqual(expect.objectContaining({id: 0, name: 'hr'}));
   })
   it("should show job title, role id, department role belongs to, and salary for role", () => {
 

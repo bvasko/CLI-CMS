@@ -1,6 +1,7 @@
 const database = require('./database.js');
+const userOptions = require('./userOptions.js');
 const makeApp = require('./app.js');
 
-const app = makeApp(database);
+const app = makeApp(database, userOptions);
 
-app.listen(3001, () => console.log("listening on port 3001"))
+app.startApp();
