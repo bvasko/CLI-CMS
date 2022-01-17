@@ -4,4 +4,5 @@ const makeApp = require('./app.js');
 
 const app = makeApp(database, userOptions);
 
+app.getRows('department');
 app.startApp();

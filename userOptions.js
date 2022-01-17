@@ -7,9 +7,9 @@ const list = {
     'Add employee',
     'Update employee role',
     'View roles',
-    'Add Role',
+    'Add role',
     'View departments',
-    'Add Department',
+    'Add department',
     'Quit'
   ]
 };
