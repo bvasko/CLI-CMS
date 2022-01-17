@@ -14,13 +14,14 @@
     "url": "git+https://github.com/bvasko/CLI-CMS.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bonnie Dipasquale",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/bvasko/CLI-CMS/issues"
   },
   "homepage": "https://github.com/bvasko/CLI-CMS#readme",
   "dependencies": {
+    "express": "^4.17.2",
     "inquirer": "^8.2.0",
     "mysql2": "^2.3.3"
   },

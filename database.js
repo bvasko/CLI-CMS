@@ -1,9 +1,10 @@
-const database = require('./database.js');
+const mysql = require('mysql2');
 
 const connection = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  database: 'employee-tracker'
+  password: '',
+  database: 'humanresources_db'
 })
 
 async function getTable(tableName) {
