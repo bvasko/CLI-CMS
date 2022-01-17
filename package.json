@@ -1,0 +1,29 @@
+{
+  "name": "cli-cms",
+  "version": "1.0.0",
+  "description": "### A simple cms using the node cli",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest --coverage true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bvasko/CLI-CMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bvasko/CLI-CMS/issues"
+  },
+  "homepage": "https://github.com/bvasko/CLI-CMS#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
