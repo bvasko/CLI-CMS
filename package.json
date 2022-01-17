@@ -21,9 +21,11 @@
   },
   "homepage": "https://github.com/bvasko/CLI-CMS#readme",
   "dependencies": {
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "supertest": "^6.2.1"
   }
 }
