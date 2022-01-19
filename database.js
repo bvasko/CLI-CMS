@@ -37,7 +37,7 @@ async function addToDb(objType, answers, rows) {
     database: 'humanresources_db'
   });
   const sqlQuery = insertQuery[objType](answers, rows);
-  connection.query(sqlQuery);
+  await connection.query(sqlQuery);
 }
 
 module.exports = { getTable, insertQuery, addToDb };

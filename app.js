@@ -31,7 +31,6 @@ function app(database, userOptions) {
     if (queryType === 'Add') {
       //get model questions object from userOptions
       const options = userOptions.options.add[model];
-      console.log(options)
       let questions = '';
       /*
       * Check to see if the questions need a list from the db
@@ -44,24 +43,23 @@ function app(database, userOptions) {
           inquirer.prompt(questions)
             .then((answers) => {
               database.addToDb(model, answers, rows);
-              console.log(model, ' created');
               app.startApp(userOptions.list);
             });
         });
+        return;
       } else {
         questions = options.questions();
         inquirer.prompt(questions)
             .then((answers) => {
               database.addToDb(model, answers.name, null);
-              console.log(model, ' created');
               app.startApp(userOptions.list);
             });
+        return;
       }
     }
 
     if (queryType === 'Quit') {
-      const p = new inquirer.ui.Prompt;
-      p.rl.close()
+      process.exit()
     }
   };
   

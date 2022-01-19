@@ -54,7 +54,6 @@ const options = {
       list: 'departments',
       questions: (departments) => {
         const departmentTitles = departments.map(department => department.name)
-        console.log(departments, departmentTitles)
         return [
         {
           type: 'input', 
