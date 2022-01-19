@@ -1,11 +1,12 @@
 const inquirer = require('inquirer');
+const { options } = require('./userOptions');
 
 function app(database, userOptions) {
   const app = {};
 
-  app.startApp = function() {
+  app.startApp = function(questions) {
     inquirer
-    .prompt(userOptions.list)
+    .prompt(questions)
     .then((answers) => {
       console.log("You chose: ", answers.action);
       app.doAction(answers.action);
@@ -19,34 +20,43 @@ function app(database, userOptions) {
       So 'view roles' will be ['view', 'roles']
     */
     const [queryType, model] = arr;
+
     if (queryType === 'View') {
-      database.getTable(model, app.displayRows);
+      database.getTable(model).then(rows => {
+        console.table(rows);
+        app.startApp(userOptions.list);
+      });
       return;
     }
+
     if (queryType === 'Add') {
       //get model questions object from userOptions
       const options = userOptions.options.add[model];
-      let list = '';
+      let questions = '';
       /*
       * Check to see if the questions need a list from the db
       */
       if (options.hasList) {
-        //create callback to pass to query, 
-        //bind questions to arg list
-        const askQuestions = function(err, results) {
-          console.log('results ', results);
-          console.log('arguments', arguments[0]())
-        }.bind(null, [options.questions]);
-
         /* get list of options from database */
-        database.getTable(options.list, askQuestions);
-        return;
-      }
-      inquirer.prompt(options.questions())
-        .then((answers) => {
-          database.addToDb(model, [answers.name]);
-          console.log('Department created');
+        database.getTable(options.list).then((rows) => {
+          // Get the questions array from the object
+          questions = options.questions(rows);
+          inquirer.prompt(questions)
+            .then((answers) => {
+              database.addToDb(model, answers, rows);
+              console.log(model, ' created');
+              app.startApp(userOptions.list);
+            });
         });
+      } else {
+        questions = options.questions();
+        inquirer.prompt(questions)
+            .then((answers) => {
+              database.addToDb(model, answers.name, null);
+              console.log(model, ' created');
+              app.startApp(userOptions.list);
+            });
+      }
     }
   };
   

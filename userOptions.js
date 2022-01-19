@@ -19,7 +19,9 @@ const options = {
     employee: {
       hasList: true,
       list: 'roles',
-      questions: (roles) => [
+      questions: (roles) => {
+        const roleTitles = roles.map(role => role.title)
+        return [
         {
           type: 'input', 
           name: 'first_name',
@@ -34,9 +36,9 @@ const options = {
           type: 'list', 
           name: 'role',
           message: 'Select Role',
-          choices: roles
+          choices: roleTitles
         }
-      ]
+      ]}
     },
     department: {
       hasList: false,
