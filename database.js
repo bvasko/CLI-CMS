@@ -7,32 +7,29 @@ const connection = mysql.createConnection({
   database: 'humanresources_db'
 });
 
-function getTable(tableName) {
-  connection.query(`
-  SELECT * 
-  FROM ${tableName}
-  `, function(err, results, fields) {
-    if (err) return err;
-    console.table(results); // results contains rows returned by server
-    // console.log(fields); // fields contains extra meta data about results, if available
-    return results;
+function getTable(tableName, cb) {
+  connection.query(`SELECT * FROM ${tableName}`, function(err, results, fields){
+    if (err) new Error(err);
+    return cb(err, results, ...arguments)
   })
 }
 
-//Define queries
-const addEmployee = (first_name, last_name, role_id) => `
-  INSERT INTO employee (first_name, last_name, role_id)
-  VALUES ("${first_name}", "${last_name}", "${role_id}")`;
-
-const addRole = (title, salary, department_id) => `
-  INSERT INTO role (title, salary, department_id)
-  VALUES ("${title}", "${salary}", "${department_id}")`;
-
-const addDepartment = (department) => `
-  INSERT INTO department (name) 
-  VALUES (${department});`;
-
-function addToDb(objType) {
+const insertQuery = {
+  employee: (first_name, last_name, role_id) => `
+    INSERT INTO employees (first_name, last_name, role_id)
+    VALUES ("${first_name}", "${last_name}", "${role_id}");`,
+  role: (title, salary, department_id) => `
+    INSERT INTO roles (title, salary, department_id)
+    VALUES ("${title}", "${salary}", "${department_id}");`,
+  department: (department) => `
+    INSERT INTO departments (name) 
+    VALUES (${department});`
 }
 
-module.exports = { getTable, addToDb };
+function addToDb(objType, args) {
+  console.log(objType, ' add: ', args);
+  const query = insertQuery[objType](...args);
+  connection.insertQuery
+}
+
+module.exports = { getTable, insertQuery, addToDb };
