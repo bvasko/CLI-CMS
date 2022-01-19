@@ -51,8 +51,11 @@ const options = {
     },
     role: {
       hasList: true,
-      listName: 'departments',
-      questions: (departments) => [
+      list: 'departments',
+      questions: (departments) => {
+        const departmentTitles = departments.map(department => department.name)
+        console.log(departments, departmentTitles)
+        return [
         {
           type: 'input', 
           name: 'title',
@@ -64,17 +67,12 @@ const options = {
           message: 'Enter salary'
         },
         {
-          type: 'input', 
-          name: 'first_name',
-          message: 'Enter first name'
-        },
-        {
           type: 'list', 
-          name: 'departments',
+          name: 'departmentTitle',
           message: 'Select Department',
-          choices: departments
+          choices: departmentTitles
         }
-      ]
+      ]}
     }
   },
   update: {

@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const { options } = require('./userOptions');
 
 function app(database, userOptions) {
   const app = {};
@@ -32,6 +31,7 @@ function app(database, userOptions) {
     if (queryType === 'Add') {
       //get model questions object from userOptions
       const options = userOptions.options.add[model];
+      console.log(options)
       let questions = '';
       /*
       * Check to see if the questions need a list from the db
