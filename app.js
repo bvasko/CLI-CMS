@@ -58,6 +58,11 @@ function app(database, userOptions) {
             });
       }
     }
+
+    if (queryType === 'Quit') {
+      const p = new inquirer.ui.Prompt;
+      p.rl.close()
+    }
   };
   
   app.displayRows = (err, results) => {

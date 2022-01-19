@@ -1,7 +1,6 @@
 const mysql = require('mysql2/promise');
 
 async function getTable(tableName) {
-  console.log('get ', tableName)
   const connection = await mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -21,7 +20,6 @@ const insertQuery = {
   },
   role: (vals, departments) => {
     const {title, salary, departmentTitle} = vals;
-    console.log(departments, departmentTitle);
     const department_id = departments.filter(dept => dept.name === departmentTitle)[0].id;
     return `INSERT INTO roles (title, salary, department_id)
     VALUES ("${title}", "${salary}", "${department_id}");`},
