@@ -23,6 +23,10 @@ To run the program:
 ``` node server.js ```
 
 <br><br>
+# Demo Video
+[Watch Demo Video](./demo.mp4)
+
+<br><br>
 # Screenshot
 ![Screenshot](screenshot.png)
 <br><br>

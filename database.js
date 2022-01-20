@@ -1,4 +1,3 @@
-const { up } = require('inquirer/lib/utils/readline');
 const mysql = require('mysql2/promise');
 
 async function getTable(tableName) {
@@ -16,8 +15,10 @@ const insertQuery = {
   employee: (vals, roles) => {
     const {first_name, last_name, role: roleTitle} = vals;
     const role_id = roles.filter(role => role.title === roleTitle)[0].id;
-    return `INSERT INTO employees (first_name, last_name, role_id)
-    VALUES ("${first_name}", "${last_name}", "${role_id}");`
+    return {
+      queryStr: `INSERT INTO employees (first_name, last_name, role_id) VALUES (?, ?, ?)`,
+      queryValues: [first_name, last_name, role_id]
+    }
   },
   role: (vals, departments) => {
     const {title, salary, departmentTitle} = vals;
@@ -29,8 +30,11 @@ const insertQuery = {
     }
   },
   department: (department) => {
-    return `INSERT INTO departments (name) 
-    VALUES ("${department}");`}
+    return {
+      queryStr: `INSERT INTO departments (name) VALUES (?)`,
+      queryValues: [department]
+    }
+  }
 }
 
 const updateQuery = {

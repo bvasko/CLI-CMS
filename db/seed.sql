@@ -4,8 +4,8 @@ INSERT INTO departments (name)
 VALUES ("engineering"), ("marketing"), ("data science");
 
 INSERT INTO roles (title, salary, department_id)
-VALUES ("Principal Architect", 450000.00, 1),
-("Marketing Director", 225000.25, 2),
+VALUES ("Principal Architect", 250000.00, 1),
+("Marketing Director", 155000.25, 2),
 ("Lead Data Scientist", 200000.00, 3),
 ("Software Engineer", 130000.00, 1);
 
