@@ -75,7 +75,26 @@ const options = {
     }
   },
   update: {
-    employee: []
+    employee: {
+      list: ['roles', 'employees'],
+      questions: (roles, employees) => {
+        const roleTitles = roles.map(role => role.title)
+        const employeeTitles = employees.map(employee => `${employee.first_name} ${employee.last_name} : ${employee.id}`)
+        return [
+        {
+          type: 'list', 
+          name: 'employeeName',
+          message: 'Which employee\'s role do you want to update?',
+          choices: employeeTitles
+        },
+        {
+          type: 'list', 
+          name: 'roleTitle',
+          message: 'Which role do you want to assign to the selected employee?',
+          choices: roleTitles
+        }
+      ]}
+    }
   }
 }
 module.exports = {options, list};

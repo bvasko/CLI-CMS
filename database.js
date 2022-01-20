@@ -1,3 +1,4 @@
+const { up } = require('inquirer/lib/utils/readline');
 const mysql = require('mysql2/promise');
 
 async function getTable(tableName) {
@@ -21,11 +22,24 @@ const insertQuery = {
   role: (vals, departments) => {
     const {title, salary, departmentTitle} = vals;
     const department_id = departments.filter(dept => dept.name === departmentTitle)[0].id;
-    return `INSERT INTO roles (title, salary, department_id)
-    VALUES ("${title}", "${salary}", "${department_id}");`},
+    return {
+      queryStr: `INSERT INTO roles (title, salary, department_id)
+        VALUES (?, ?, ?)`,
+      queryValues: [title, salary, department_id]
+    }
+  },
   department: (department) => {
     return `INSERT INTO departments (name) 
     VALUES ("${department}");`}
+}
+
+const updateQuery = {
+  employee: (roleId, employeeId) => {
+    return {
+      queryStr: `UPDATE employees SET role_id = ? WHERE id = ?`,
+      queryValues: [roleId, employeeId]
+    }
+  }
 }
 
 
@@ -37,7 +51,18 @@ async function addToDb(objType, answers, rows) {
     database: 'humanresources_db'
   });
   const sqlQuery = insertQuery[objType](answers, rows);
-  await connection.query(sqlQuery);
+  await connection.execute(sqlQuery.queryStr, sqlQuery.queryValues);
 }
 
-module.exports = { getTable, insertQuery, addToDb };
+async function updateDb(role, roleId, employeeId) {
+  const connection = await mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'humanresources_db'
+  });
+  const sqlQuery = updateQuery[role](roleId, employeeId)
+  await connection.execute(sqlQuery.queryStr, sqlQuery.queryValues);
+}
+
+module.exports = { getTable, addToDb, updateDb };
