@@ -12,11 +12,19 @@
 <br><br>
 
 # Usage
-npm run start
+```
+git clone git@github.com:bvasko/CLI-CMS.git
+npm install
+```
+
+Run the database migrations in schema.sql and seeds.sql
+
+To run the program:
+``` node server.js ```
 
 <br><br>
 # Screenshot
-
+![Screenshot](screenshot.png)
 <br><br>
 # Contribute
 Contributions are welcome!
