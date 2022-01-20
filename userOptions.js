@@ -1,8 +1,10 @@
+const inquirer = require('inquirer');
 const list = {
   type: 'list',
   name: 'action',
   message: 'What do you want to do?',
   choices: [
+    new inquirer.Separator(),
     'View employees',
     'Add employee',
     'Update employee role',
@@ -10,7 +12,9 @@ const list = {
     'Add role',
     'View departments',
     'Add department',
-    'Quit'
+    new inquirer.Separator(),
+    'Quit',
+    new inquirer.Separator(),
   ]
 };
 

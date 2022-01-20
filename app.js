@@ -1,4 +1,23 @@
 const inquirer = require('inquirer');
+const logo = require('asciiart-logo');
+
+console.log(
+  logo({
+      name: 'Employee Manager',
+      // font: 'Speed',
+      lineChars: 10,
+      padding: 2,
+      margin: 3,
+      borderColor: 'grey',
+      logoColor: 'bold-cyan',
+      textColor: 'green',
+  })
+  .emptyLine()
+  .right('version 1.0')
+  .emptyLine()
+  .center('by Bonnie Dipasquale')
+  .render()
+);
 
 function app(database, userOptions) {
   const app = {};
